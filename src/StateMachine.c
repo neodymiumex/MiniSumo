@@ -1,4 +1,5 @@
 #include "StateMachine.h"
+#include <stddef.h>
 
 void StateMachine_Signal(StateMachine_t *instance, const Signal_t signal, const void *args)
 {

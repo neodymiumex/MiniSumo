@@ -2,8 +2,8 @@
 #define _ANALOGSENSOR_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "Event.h"
-#include <Arduino.h>
 
 typedef struct
 {

@@ -1,18 +1,23 @@
 #include <stdint.h>
 #include "MotorController.h"
 
-static void UpdateMotorSpeeds(int8_t leftMotor, int8_t rightMotor)
+static void UpdateMotorSpeeds(MotorController_t *instance, MotorSpeed_t leftMotor, MotorSpeed_t rightMotor)
 {
-
+    Hardware_SetAnalogPin(instance->hardware, MOTOR_1_EN, leftMotor);
+    Hardware_SetAnalogPin(instance->hardware, MOTOR_2_EN, rightMotor);
 }
 
-static void HandleRequest(MotorController_t *instance, void *args)
+static void HandleRequest(void *context, void *args)
 {
+    MotorController_t *instance = (MotorController_t *)context;
+    MotorRequest_t *request = (MotorRequest_t *)args;
 
+    UpdateMotorSpeeds(instance, request->left, request->right);
 }
 
-static void ParseMessage(MotorController_t *instance, void *args)
+static void ParseMessage(void *context, void *args)
 {
+    MotorController_t *instance = (MotorController_t *)context;
     char *message = (char *)args;
     char moveChar = MOVE_CHAR;
     char *settings;
@@ -63,12 +68,14 @@ static void ParseMessage(MotorController_t *instance, void *args)
         mixedLeft = (1.0 - scale) * premixLeft + scale * (pivotSpeed);
         mixedRight = (1.0 - scale) * premixRight + scale * (-pivotSpeed);
 
-        UpdateMotorSpeeds(mixedLeft, mixedRight);
+        UpdateMotorSpeeds(instance, mixedLeft, mixedRight);
     }
 }
 
-void MotorController_Init(MotorController_t *instance, Event_t *motorRequestEvent, Event_t *newSerialMessageEvent)
+void MotorController_Init(MotorController_t *instance, Event_t *motorRequestEvent, Event_t *newSerialMessageEvent, I_Hardware_t *hardware)
 {
+    instance->hardware = hardware;
+
     EventSubscription_Init(&instance->newMessageSubscription, instance, ParseMessage);
     Event_Subscribe(newSerialMessageEvent, &instance->newMessageSubscription);
 

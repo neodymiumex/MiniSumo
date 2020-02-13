@@ -2,7 +2,7 @@
 
 void TimerModule_Run(TimerModule_t *instance)
 {
-    unsigned long currentMs = millis();
+    unsigned long currentMs = Hardware_GetCurrentMs(instance->hardware);
 
     if(currentMs > instance->currentMs)
     {
@@ -54,7 +54,8 @@ void Timer_AddPeriodic(TimerModule_t *instance, Timer_t *timer, unsigned long du
     LinkedList_Push(instance->timers, (LinkedListNode_t *)timer);
 }
 
-void TimerModule_Init(TimerModule_t *instance)
+void TimerModule_Init(TimerModule_t *instance, I_Hardware_t *hardware)
 {
+    instance->hardware = hardware;
     LinkedList_Init(instance->timers);
 }

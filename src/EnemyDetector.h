@@ -4,6 +4,7 @@
 #include "DigitalSensor.h"
 #include "Event.h"
 #include "Timer.h"
+#include "Hardware.h"
 
 typedef enum
 {
@@ -28,6 +29,6 @@ typedef struct
     Timer_t timer;
 } EnemyDetector_t;
 
-void EnemyDetector_Init(EnemyDetector_t *instance, Event_t *enemyDetectedEvent, TimerModule_t *timerModule);
+void EnemyDetector_Init(EnemyDetector_t *instance, Event_t *enemyDetectedEvent, TimerModule_t *timerModule, I_Hardware_t *hardware);
 
 #endif

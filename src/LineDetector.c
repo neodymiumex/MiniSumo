@@ -1,4 +1,5 @@
 #include "LineDetector.h"
+#include <string.h>
 
 #define LINE_SENSOR_LEFT  8
 #define LINE_SENSOR_RIGHT 9
@@ -12,7 +13,7 @@ static void ParseMessage(void *context, void *args)
 
     if(strstr(message, leftThresholdsStr))
     {
-        int leftThreshold = 0;
+        int leftThreshold;
         char *substr;
 
         leftThreshold = atoi(message + strlen(leftThresholdsStr) + 1);
@@ -21,7 +22,7 @@ static void ParseMessage(void *context, void *args)
     }
     else if(strstr(message, rightThresholdStr))
     {
-        int rightThreshold = 0;
+        int rightThreshold;
 
         rightThreshold = atoi(message + strlen(rightThresholdStr) + 1);
 

@@ -2,7 +2,7 @@
 #define _TIMER_H_
 
 #include "Event.h"
-#include <Arduino.h>
+#include "I_Hardware.h"
 
 typedef struct
 {
@@ -19,9 +19,10 @@ typedef struct
 {
     LinkedList_t *timers;
     unsigned long currentMs;
+    I_Hardware_t *hardware;
 } TimerModule_t;
 
-void TimerModule_Init(TimerModule_t *instance);
+void TimerModule_Init(TimerModule_t *instance, I_Hardware_t *hardware);
 void TimerModule_Run(TimerModule_t *instance);
 void Timer_AddSingle(TimerModule_t *instance, Timer_t *timer, unsigned long durationMs, void *context, void *callback);
 void Timer_AddPeriodic(TimerModule_t *instance, Timer_t *timer, unsigned long durationMs, void *context, void *callback);

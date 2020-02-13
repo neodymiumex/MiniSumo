@@ -3,7 +3,7 @@
 
 typedef struct LinkedListNode_t
 {
-    LinkedListNode_t *next;
+    struct LinkedListNode_t *next;
 } LinkedListNode_t;
 
 typedef struct

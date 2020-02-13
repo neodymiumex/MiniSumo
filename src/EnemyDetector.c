@@ -1,5 +1,5 @@
 #include "EnemyDetector.h"
-#include <Arduino.h>
+#include <string.h>
 
 #define PRESENCE_SENSOR_LEFT 2
 #define PRESENCE_SENSOR_FRONTLEFT 3
@@ -51,15 +51,15 @@ static void CheckSensors(void *context)
   }
 }
 
-void EnemyDetector_Init(EnemyDetector_t *instance, Event_t *enemyDetectedEvent, TimerModule_t *timerModule)
+void EnemyDetector_Init(EnemyDetector_t *instance, Event_t *enemyDetectedEvent, TimerModule_t *timerModule, I_Hardware_t *hardware)
 {
   instance->enemyDetectedEvent = enemyDetectedEvent;
 
-  DigitalSensor_Init(&instance->leftSensor, PRESENCE_SENSOR_LEFT);
-  DigitalSensor_Init(&instance->frontLeftSensor, PRESENCE_SENSOR_FRONTLEFT);
-  DigitalSensor_Init(&instance->frontSensor, PRESENCE_SENSOR_FRONT);
-  DigitalSensor_Init(&instance->frontRightSensor, PRESENCE_SENSOR_FRONTRIGHT);
-  DigitalSensor_Init(&instance->rightSensor, PRESENCE_SENSOR_RIGHT);
+  DigitalSensor_Init(&instance->leftSensor, PRESENCE_SENSOR_LEFT, hardware);
+  DigitalSensor_Init(&instance->frontLeftSensor, PRESENCE_SENSOR_FRONTLEFT, hardware);
+  DigitalSensor_Init(&instance->frontSensor, PRESENCE_SENSOR_FRONT, hardware);
+  DigitalSensor_Init(&instance->frontRightSensor, PRESENCE_SENSOR_FRONTRIGHT, hardware);
+  DigitalSensor_Init(&instance->rightSensor, PRESENCE_SENSOR_RIGHT, hardware);
 
   Timer_AddPeriodic(timerModule, &instance->timer, 10, instance, CheckSensors);
 }

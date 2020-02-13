@@ -1,4 +1,7 @@
 #include <Arduino.h>
+
+extern "C"
+{
 #include "SerialReader.h"
 #include "MotorController.h"
 #include "EnemyDetector.h"
@@ -6,6 +9,8 @@
 #include "SerialLogger.h"
 #include "Timer.h"
 #include "CombatController.h"
+#include "Hardware.h"
+}
 
 typedef struct
 {
@@ -21,6 +26,7 @@ typedef struct
   SerialLogger_t serialLogger;
   TimerModule_t timerModule;
   CombatController_t combatController;
+  Hardware_t hardware;
 } Vishnu_t;
 
 Vishnu_t vishnu;
@@ -33,15 +39,20 @@ void setup()
   Event_Init(&vishnu.logEvent);
   Event_Init(&vishnu.motorRequestEvent);
 
-  SerialReader_Init(&vishnu.serialReader, &vishnu.newSerialMessageEvent);
-  MotorController_Init(&vishnu.motorController, &vishnu.motorRequestEvent, &vishnu.newSerialMessageEvent);
-  EnemyDetector_Init(&vishnu.enemyDetector, &vishnu.enemyDetectedEvent, &vishnu.timerModule);
-  LineDetector_Init(&vishnu.lineDetector, &vishnu.lineDetectedEvent, &vishnu.newSerialMessageEvent, &vishnu.timerModule);
-  SerialLogger_Init(&vishnu.serialLogger, &vishnu.logEvent);
-  TimerModule_Init(&vishnu.timerModule);
+  Hardware_Init(&vishnu.hardware);
 
-  Serial1.begin(9600);
-  Serial1.println("<Vishnu is ready>");
+  SerialReader_Init(&vishnu.serialReader, &vishnu.newSerialMessageEvent, &vishnu.hardware.interface);
+  MotorController_Init(&vishnu.motorController, &vishnu.motorRequestEvent, &vishnu.newSerialMessageEvent, &vishnu.hardware.interface);
+  EnemyDetector_Init(&vishnu.enemyDetector, &vishnu.enemyDetectedEvent, &vishnu.timerModule, &vishnu.hardware.interface);
+  LineDetector_Init(&vishnu.lineDetector, &vishnu.lineDetectedEvent, &vishnu.newSerialMessageEvent, &vishnu.timerModule);
+  SerialLogger_Init(&vishnu.serialLogger, &vishnu.logEvent, &vishnu.hardware.interface);
+  TimerModule_Init(&vishnu.timerModule, &vishnu.hardware.interface);
+  CombatController_Init(&vishnu.combatController,
+                        &vishnu.newSerialMessageEvent,
+                        &vishnu.lineDetectedEvent,
+                        &vishnu.enemyDetectedEvent,
+                        &vishnu.motorRequestEvent,
+                        &vishnu.timerModule);
 }
 
 void loop()

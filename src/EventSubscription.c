@@ -8,5 +8,5 @@ void EventSubscription_Init(EventSubscription_t *instance, void *context, void *
 
 void EventSubscription_Publish(EventSubscription_t *instance, const void *args)
 {
-    instance->callback(instance->context, args);
+    instance->callback(instance->context, (void *)args);
 }

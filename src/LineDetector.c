@@ -1,5 +1,6 @@
 #include "LineDetector.h"
 #include <string.h>
+#include <stdlib.h>
 
 #define LINE_SENSOR_LEFT  8
 #define LINE_SENSOR_RIGHT 9
@@ -14,7 +15,6 @@ static void ParseMessage(void *context, void *args)
     if(strstr(message, leftThresholdsStr))
     {
         int leftThreshold;
-        char *substr;
 
         leftThreshold = atoi(message + strlen(leftThresholdsStr) + 1);
 
@@ -59,15 +59,15 @@ void CheckSensors(void *context)
     }
 }
 
-void LineDetector_Init(LineDetector_t *instance, Event_t *lineDetectedEvent, Event_t *newSerialMessageEvent, TimerModule_t *timerModule)
+void LineDetector_Init(LineDetector_t *instance, Event_t *lineDetectedEvent, Event_t *newSerialMessageEvent, TimerModule_t *timerModule, I_Hardware_t *hardware)
 {
     instance->lineDetectedEvent = lineDetectedEvent;
 
     EventSubscription_Init(&instance->newMessageSubscription, instance, ParseMessage);
     Event_Subscribe(newSerialMessageEvent, &instance->newMessageSubscription);
 
-    AnalogSensor_Init(&instance->leftLineSensor, LINE_SENSOR_LEFT);
-    AnalogSensor_Init(&instance->rightLineSensor, LINE_SENSOR_RIGHT);
+    AnalogSensor_Init(&instance->leftLineSensor, LINE_SENSOR_LEFT, hardware);
+    AnalogSensor_Init(&instance->rightLineSensor, LINE_SENSOR_RIGHT, hardware);
 
     Timer_AddPeriodic(timerModule, &instance->timer, 10, instance, CheckSensors);
 }

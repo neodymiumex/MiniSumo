@@ -4,6 +4,7 @@
 #include "AnalogSensor.h"
 #include "Event.h"
 #include "Timer.h"
+#include "I_Hardware.h"
 
 #define LEFT_THRESHOLD_STR "Set Left Line Threshold"
 #define RIGHT_THRESHOLD_STR "Set Right Line Threshold"
@@ -25,6 +26,6 @@ typedef struct
     Timer_t timer;
 } LineDetector_t;
 
-void LineDetector_Init(LineDetector_t *instance, Event_t *lineDetectedEvent, Event_t *newSerialMessageEvent, TimerModule_t *timerModule);
+void LineDetector_Init(LineDetector_t *instance, Event_t *lineDetectedEvent, Event_t *newSerialMessageEvent, TimerModule_t *timerModule, I_Hardware_t *hardware);
 
 #endif

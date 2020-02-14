@@ -53,6 +53,11 @@ void WriteLineToSerial1(I_Hardware_t *instance, char *message)
     Serial1.println(message);
 }
 
+unsigned long GetCurrentMs(I_Hardware_t *instance)
+{
+    return millis();
+}
+
 static const I_Hardware_Api_t api =
 {
     SetPinModeToOutput,
@@ -64,7 +69,8 @@ static const I_Hardware_Api_t api =
     SetSerial1BaudRate,
     Serial1DataAvailable,
     ReadCharFromSerial1,
-    WriteLineToSerial1
+    WriteLineToSerial1,
+    GetCurrentMs
 };
 
 void Hardware_Init(Hardware_t *instance)

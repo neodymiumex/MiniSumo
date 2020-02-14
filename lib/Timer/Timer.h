@@ -2,7 +2,7 @@
 #define _TIMER_H_
 
 #include "Event.h"
-#include "I_Hardware.h"
+#include <I_Hardware.h>
 
 typedef struct
 {
@@ -17,7 +17,7 @@ typedef struct
 
 typedef struct
 {
-    LinkedList_t *timers;
+    LinkedList_t timers;
     unsigned long currentMs;
     I_Hardware_t *hardware;
 } TimerModule_t;

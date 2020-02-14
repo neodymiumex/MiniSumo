@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdlib.h>
 #include "MotorController.h"
 
 static void UpdateMotorSpeeds(MotorController_t *instance, MotorSpeed_t leftMotor, MotorSpeed_t rightMotor)

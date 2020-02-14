@@ -1,5 +1,5 @@
-#ifndef _HARDWAREAPI_H_
-#define _HARDWAREAPI_H_
+#ifndef _I_HARDWARE_H_
+#define _I_HARDWARE_H_
 
 #include <stdint.h>
 #include <stdbool.h>

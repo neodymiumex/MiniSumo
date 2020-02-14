@@ -1,3 +1,5 @@
+#ifndef UNIT_TEST
+
 #include "Hardware.h"
 #include <Arduino.h>
 
@@ -80,3 +82,5 @@ void Hardware_Init(Hardware_t *instance)
     SetSerial1BaudRate(&instance->interface, SERIAL_BAUD_RATE);
 
 }
+
+#endif

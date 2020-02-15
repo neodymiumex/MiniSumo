@@ -57,22 +57,18 @@ bool Serial1DataAvailable(I_Hardware_t *instance)
     return *hardware->config->serialAvailable;
 }
 
-volatile unsigned int length;
-
 char ReadCharFromSerial1(I_Hardware_t *instance)
 {
     Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
     char rc;
     rc = *hardware->config->serialChar;
-    length = strlen(hardware->config->serialChar);
 
-    if(length == 0)
+    hardware->config->serialChar++;
+    hardware->strLen--;
+
+    if(hardware->strLen == 0)
     {
         Hardware_Mock_SetSerial1DataAvailable(hardware, false);
-    }
-    else
-    {
-        hardware->config->serialChar++;
     }
 
     return rc;
@@ -81,7 +77,8 @@ char ReadCharFromSerial1(I_Hardware_t *instance)
 void WriteLineToSerial1(I_Hardware_t *instance, char *message)
 {
     Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
-    hardware->config->serialChar = message;
+    hardware->strLen = strlen(message);
+    memcpy(hardware->config->serialChar, message, hardware->strLen);
     Hardware_Mock_SetSerial1DataAvailable(hardware, true);
 }
 

@@ -16,6 +16,7 @@ typedef struct
 {
     I_Hardware_t interface;
     Hardware_Mock_Config_t *config;
+    unsigned int strLen;
 } Hardware_Mock_t;
 
 void Hardware_Mock_Init(Hardware_Mock_t *instance, Hardware_Mock_Config_t  *config);

@@ -26,17 +26,17 @@ static void ParseMessage(void *context, void *args)
     if(settings = strstr(message, moveStr))
     {
         char *substr;
-        char xChar = X_CHAR;
-        char yChar = Y_CHAR;
+        char *xChar = X_CHAR;
+        char *yChar = Y_CHAR;
         int x = 0;
         int y = 0;
 
-        if(substr = strstr(settings, &xChar))
+        if(substr = strstr(settings, xChar))
         {
             x = atoi(substr + 2);
         }
 
-        if(substr = strstr(settings, &yChar))
+        if(substr = strstr(settings, yChar))
         {
             y = atoi(substr + 2);
         }
@@ -69,7 +69,7 @@ static void ParseMessage(void *context, void *args)
         mixedLeft = (1.0 - scale) * premixLeft + scale * (pivotSpeed);
         mixedRight = (1.0 - scale) * premixRight + scale * (-pivotSpeed);
 
-        UpdateMotorSpeeds(instance, mixedLeft, mixedRight);
+        UpdateMotorSpeeds(instance, mixedRight, mixedLeft);
     }
 }
 

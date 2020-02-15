@@ -14,36 +14,38 @@ void Hardware_Mock_SetSerial1DataAvailable(Hardware_Mock_t *instance, bool avail
 
 void SetPinModeToOutput(I_Hardware_t *instance, uint8_t pin)
 {
-
+    Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
+    *(hardware->config->pinMode + pin) = 1;
 }
 
 void SetPinModeToInput(I_Hardware_t *instance, uint8_t pin)
 {
-
+    Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
+    *(hardware->config->pinMode + pin) = 2;
 }
 
 void SetDigitalPin(I_Hardware_t *instance, uint8_t pin, bool high)
 {
     Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
-    *hardware->config->digitalPinValue = high;
+    *(hardware->config->digitalPinValue + pin) = high;
 }
 
 void SetAnalogPin(I_Hardware_t *instance, uint8_t pin, int value)
 {
     Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
-    *hardware->config->analogPinValue = value;
+    *(hardware->config->analogPinValue + pin) = value;
 }
 
 bool ReadDigitalPin(I_Hardware_t *instance, uint8_t pin)
 {
     Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
-    return *hardware->config->digitalPinValue;
+    return *(hardware->config->digitalPinValue + pin);
 }
 
 int ReadAnalogPin(I_Hardware_t *instance, uint8_t pin)
 {
     Hardware_Mock_t *hardware  = (Hardware_Mock_t *)instance;
-    return *hardware->config->analogPinValue;
+    return *(hardware->config->analogPinValue + pin);
 }
 
 void SetSerial1BaudRate(I_Hardware_t *instance, unsigned long baudRate)

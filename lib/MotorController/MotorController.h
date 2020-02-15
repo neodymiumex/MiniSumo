@@ -4,9 +4,9 @@
 #include "Event.h"
 #include "I_Hardware.h"
 
-#define MOVE_STR 'Set Motors'
-#define X_CHAR 'X'
-#define Y_CHAR 'Y'
+#define MOVE_STR "Set Motors"
+#define X_CHAR "X"
+#define Y_CHAR "Y"
 
 typedef enum
 {

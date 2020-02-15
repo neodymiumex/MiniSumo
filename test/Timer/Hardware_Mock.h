@@ -5,6 +5,7 @@
 
 typedef struct
 {
+    int *pinMode;
     bool *digitalPinValue;
     int *analogPinValue;
     bool *serialAvailable;

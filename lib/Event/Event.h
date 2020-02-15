@@ -6,7 +6,7 @@
 
 typedef struct
 {
-    LinkedList_t *subscriptions;
+    LinkedList_t subscriptions;
 } Event_t;
 
 void Event_Init(Event_t *instance);

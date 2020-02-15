@@ -1,4 +1,3 @@
-#ifdef UNIT_TEST
 #include "unity.h"
 #include "Timer.h"
 #include "Hardware_Mock.h"
@@ -177,4 +176,3 @@ int main(void)
 
     return UNITY_END();
 }
-#endif

@@ -19,6 +19,6 @@ typedef struct
 } Hardware_Mock_t;
 
 void Hardware_Mock_Init(Hardware_Mock_t *instance, Hardware_Mock_Config_t  *config);
-unsigned long Hardware_Mock_ElapseTime(Hardware_Mock_t *instance, unsigned long timeElapsed);
+void Hardware_Mock_ElapseTime(Hardware_Mock_t *instance, unsigned long timeElapsed);
 
 #endif

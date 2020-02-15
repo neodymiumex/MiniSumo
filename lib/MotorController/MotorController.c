@@ -20,10 +20,10 @@ static void ParseMessage(void *context, void *args)
 {
     MotorController_t *instance = (MotorController_t *)context;
     char *message = (char *)args;
-    char moveChar = MOVE_CHAR;
+    char *moveStr = MOVE_STR;
     char *settings;
 
-    if(settings = strstr(message, &moveChar))
+    if(settings = strstr(message, moveStr))
     {
         char *substr;
         char xChar = X_CHAR;

@@ -4,7 +4,7 @@
 #include "Event.h"
 #include "I_Hardware.h"
 
-#define MOVE_CHAR 'M'
+#define MOVE_STR 'Set Motors'
 #define X_CHAR 'X'
 #define Y_CHAR 'Y'
 

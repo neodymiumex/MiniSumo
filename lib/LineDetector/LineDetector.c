@@ -69,5 +69,5 @@ void LineDetector_Init(LineDetector_t *instance, Event_t *lineDetectedEvent, Eve
     AnalogSensor_Init(&instance->leftLineSensor, LINE_SENSOR_LEFT, hardware);
     AnalogSensor_Init(&instance->rightLineSensor, LINE_SENSOR_RIGHT, hardware);
 
-    Timer_AddPeriodic(timerModule, &instance->timer, 10, instance, CheckSensors);
+    Timer_AddPeriodic(timerModule, &instance->timer, 1, instance, CheckSensors);
 }

@@ -27,10 +27,6 @@ static void CheckSensors(void *context)
   {
     direction = ED_Right;
   }
-  else if (front)
-  {
-    direction = ED_Front;
-  }
   else if (frontLeft)
   {
     direction = ED_FrontLeft;
@@ -38,6 +34,10 @@ static void CheckSensors(void *context)
   else if (frontRight)
   {
     direction = ED_FrontRight;
+  }
+  else if (front)
+  {
+    direction = ED_Front;
   }
   else
   {

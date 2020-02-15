@@ -11,9 +11,9 @@ typedef struct
     I_Hardware_t *hardware;
     Event_t *detectionEvent;
     uint8_t inputPin;
-    float threshold;
-    float filterWeight;
-    float currentValue;
+    int threshold;
+    int filterWeight;
+    int currentValue;
 } AnalogSensor_t;
 
 void AnalogSensor_Init(AnalogSensor_t *instance, uint8_t inputPin, I_Hardware_t *hardware);

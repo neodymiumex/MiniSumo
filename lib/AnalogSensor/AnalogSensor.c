@@ -1,10 +1,13 @@
 #include "AnalogSensor.h"
+#include <stdint.h>
 
+// Filter using exponential smoothing.
+// Older readings are given less weight the older they are
 static int ReadAndFilter(AnalogSensor_t *instance)
 {
     int newValue = Hardware_ReadAnalogPin(instance->hardware, instance->inputPin);
 
-    instance->currentValue = (100 * instance->filterWeight * newValue + (100 - instance->filterWeight) * instance->currentValue + 50)/100;
+    instance->currentValue = (INT32_C(1) * 100 * instance->filterWeight * newValue + INT32_C(1) * (100 - instance->filterWeight) * instance->currentValue + 50)/(INT32_C(1) *100);
 
     return instance->currentValue;
 }
@@ -43,5 +46,6 @@ void AnalogSensor_Init(AnalogSensor_t *instance, uint8_t inputPin, I_Hardware_t 
 {
     instance->inputPin = inputPin;
     instance->hardware = hardware;
-    instance->currentValue = Hardware_ReadAnalogPin(hardware, inputPin) * 100;
+    instance->filterWeight = 50;
+    instance->currentValue = Hardware_ReadAnalogPin(hardware, inputPin);
 }

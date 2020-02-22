@@ -43,7 +43,6 @@ void setup()
 
   SerialReader_Init(&vishnu.serialReader, &vishnu.newSerialMessageEvent, &vishnu.hardware.interface);
   MotorController_Init(&vishnu.motorController, &vishnu.motorRequestEvent, &vishnu.newSerialMessageEvent, &vishnu.hardware.interface);
-  EnemyDetector_Init(&vishnu.enemyDetector, &vishnu.enemyDetectedEvent, &vishnu.timerModule, &vishnu.hardware.interface);
   LineDetector_Init(&vishnu.lineDetector, &vishnu.lineDetectedEvent, &vishnu.newSerialMessageEvent, &vishnu.timerModule, &vishnu.hardware.interface);
   SerialLogger_Init(&vishnu.serialLogger, &vishnu.logEvent, &vishnu.hardware.interface);
   TimerModule_Init(&vishnu.timerModule, &vishnu.hardware.interface);
@@ -53,6 +52,7 @@ void setup()
                         &vishnu.enemyDetectedEvent,
                         &vishnu.motorRequestEvent,
                         &vishnu.timerModule);
+  EnemyDetector_Init(&vishnu.enemyDetector, &vishnu.enemyDetectedEvent, &vishnu.timerModule, &vishnu.hardware.interface);
 }
 
 void loop()

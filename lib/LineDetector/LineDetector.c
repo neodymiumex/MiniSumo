@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define LINE_SENSOR_LEFT  8
-#define LINE_SENSOR_RIGHT 9
+#define LEFT_THRESHOLD 800
+#define RIGHT_THRESHOLD 800
 
 static void ParseMessage(void *context, void *args)
 {
@@ -68,6 +68,9 @@ void LineDetector_Init(LineDetector_t *instance, Event_t *lineDetectedEvent, Eve
 
     AnalogSensor_Init(&instance->leftLineSensor, LINE_SENSOR_LEFT, hardware);
     AnalogSensor_Init(&instance->rightLineSensor, LINE_SENSOR_RIGHT, hardware);
+
+    AnalogSensor_UpdateThreshold(&instance->leftLineSensor, LEFT_THRESHOLD);
+    AnalogSensor_UpdateThreshold(&instance->leftLineSensor, RIGHT_THRESHOLD);
 
     Timer_AddPeriodic(timerModule, &instance->timer, 1, instance, CheckSensors);
 }

@@ -53,6 +53,11 @@ void WriteLineToSerial1(I_Hardware_t *instance, char *message)
     Serial1.println(message);
 }
 
+void WriteDataToSerial1(I_Hardware_t *instance, char *message, int length)
+{
+    Serial1.write(message, length);
+}
+
 unsigned long GetCurrentMs(I_Hardware_t *instance)
 {
     return millis();
@@ -70,6 +75,7 @@ static const I_Hardware_Api_t api =
     Serial1DataAvailable,
     ReadCharFromSerial1,
     WriteLineToSerial1,
+    WriteDataToSerial1,
     GetCurrentMs
 };
 

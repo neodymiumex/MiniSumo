@@ -7,6 +7,7 @@
 #include "Timer.h"
 #include "EnemyDetector.h"
 #include "LineDetector.h"
+#include "Maneuvers.h"
 
 #define START_COMBAT_STR "Go"
 #define HALT_COMBAT_STR "Halt"
@@ -22,8 +23,11 @@ typedef struct
     StateMachine_t stateMachine;
     TimerModule_t *timerModule;
     Timer_t countdownTimer;
+    Timer_t manueverTimer;
     EnemyDirection_t enemyDirection;
     LineLocation_t lineLocation;
+    ManeuverType_t currentManuever;
+    uint8_t stepIndex;
 } CombatController_t;
 
 void CombatController_Init(CombatController_t *instance,

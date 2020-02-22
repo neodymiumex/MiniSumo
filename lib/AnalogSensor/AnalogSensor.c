@@ -7,7 +7,7 @@ static int ReadAndFilter(AnalogSensor_t *instance)
 {
     int newValue = Hardware_ReadAnalogPin(instance->hardware, instance->inputPin);
 
-    instance->currentValue = (INT32_C(1) * 100 * instance->filterWeight * newValue + INT32_C(1) * (100 - instance->filterWeight) * instance->currentValue + 50)/(INT32_C(1) *100);
+    instance->currentValue = (int)((INT32_C(1) * instance->filterWeight * newValue + INT32_C(1) * (100 - instance->filterWeight) * instance->currentValue + 50)/(INT32_C(1) * 100));
 
     return instance->currentValue;
 }
@@ -17,9 +17,9 @@ bool AnalogSensor_Check(AnalogSensor_t *instance)
     int sensorValue;
     bool result = false;
 
-    sensorValue = ReadAndFilter(instance->hardware);
+    sensorValue = ReadAndFilter(instance);
 
-    if(sensorValue >= instance->threshold)
+    if(sensorValue <= instance->threshold)
     {
         result = true;
     }

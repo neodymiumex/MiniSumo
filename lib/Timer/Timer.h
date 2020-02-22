@@ -24,6 +24,7 @@ typedef struct
 
 void TimerModule_Init(TimerModule_t *instance, I_Hardware_t *hardware);
 void TimerModule_Run(TimerModule_t *instance);
+bool Timer_IsActive(TimerModule_t *instance, Timer_t *timer);
 void Timer_AddSingle(TimerModule_t *instance, Timer_t *timer, unsigned long durationMs, void *context, void *callback);
 void Timer_AddPeriodic(TimerModule_t *instance, Timer_t *timer, unsigned long durationMs, void *context, void *callback);
 void Timer_Stop(TimerModule_t *instance, Timer_t *timer);

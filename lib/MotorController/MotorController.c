@@ -4,14 +4,33 @@
 
 static void UpdateMotorSpeeds(MotorController_t *instance, MotorSpeed_t leftMotor, MotorSpeed_t rightMotor)
 {
-    Hardware_SetAnalogPin(instance->hardware, MOTOR_1_EN, leftMotor);
-    Hardware_SetAnalogPin(instance->hardware, MOTOR_2_EN, rightMotor);
+    Hardware_SetAnalogPin(instance->hardware, MOTOR_2_EN, leftMotor);
+    Hardware_SetAnalogPin(instance->hardware, MOTOR_1_EN, rightMotor);
 }
 
 static void HandleRequest(void *context, void *args)
 {
     MotorController_t *instance = (MotorController_t *)context;
     MotorRequest_t *request = (MotorRequest_t *)args;
+    int leftDuty, rightDuty;
+
+    if((request->left == MS_ReverseFast) || (request->left == MS_ReverseSlow))
+    {
+        Hardware_SetDigitalPin(instance->hardware, MOTOR_1_DIR, MD_Reverse);
+    }
+    else
+    {
+        Hardware_SetDigitalPin(instance->hardware, MOTOR_1_DIR, MD_Forward);
+    }
+
+    if((request->right == MS_ReverseFast) || (request->right == MS_ReverseSlow))
+    {
+        Hardware_SetDigitalPin(instance->hardware, MOTOR_2_DIR, MD_Reverse);
+    }
+        else
+    {
+        Hardware_SetDigitalPin(instance->hardware, MOTOR_2_DIR, MD_Forward);
+    }
 
     UpdateMotorSpeeds(instance, request->left, request->right);
 }
@@ -82,4 +101,10 @@ void MotorController_Init(MotorController_t *instance, Event_t *motorRequestEven
 
     EventSubscription_Init(&instance->motorRequestSubscription, instance, HandleRequest);
     Event_Subscribe(motorRequestEvent, &instance->motorRequestSubscription);
+
+
+    Hardware_SetDigitalPin(hardware, MOTOR_1_DIR, MD_Forward);
+    Hardware_SetDigitalPin(hardware, MOTOR_2_DIR, MD_Forward);
+    Hardware_SetAnalogPin(hardware, MOTOR_1_EN, MS_Stop);
+    Hardware_SetAnalogPin(hardware, MOTOR_2_EN, MS_Stop);
 }

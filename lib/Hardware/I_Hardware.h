@@ -8,6 +8,8 @@
 #define MOTOR_1_EN 3
 #define MOTOR_2_DIR 4
 #define MOTOR_2_EN 5
+#define LINE_SENSOR_LEFT  8
+#define LINE_SENSOR_RIGHT 9
 #define SERIAL_BAUD_RATE 9600
 
 struct I_Hardware_Api_t;
@@ -29,6 +31,7 @@ typedef struct I_Hardware_Api_t
     bool (*Serial1DataAvailable)(I_Hardware_t *instance);
     char (*ReadCharFromSerial1)(I_Hardware_t *instance);
     void (*WriteLineToSerial1)(I_Hardware_t *instance, char *message);
+    void (*WriteDataToSerial1)(I_Hardware_t *instance, char *message, int length);
     unsigned long (*GetCurrentMs)(I_Hardware_t *instance);
 } I_Hardware_Api_t;
 
@@ -61,6 +64,9 @@ typedef struct I_Hardware_Api_t
 
 #define Hardware_WriteLineToSerial1(instance, message) \
     (instance)->api->WriteLineToSerial1((instance), (message))
+
+#define Hardware_WriteDataToSerial1(instance, message, length) \
+    (instance)->api->WriteDataToSerial1((instance), (message), (length))
 
 #define Hardware_GetCurrentMs(instance) \
     (instance)->api->GetCurrentMs(instance)

@@ -10,11 +10,21 @@
 
 typedef enum
 {
-    MS_Stop,
-    MS_GoSlow,
-    MS_GoFast,
-    MS_Reverse
+    MS_GoFast = 0,
+    MS_GoMedium = 100,
+    MS_GoSlow = 200,
+    MS_ReverseFast = 1,
+    MS_ReverseMedium = 101,
+    MS_ReverseSlow = 201,
+    MS_Stop = 255,
 } MotorSpeed_t;
+
+typedef enum
+{
+    MD_Reverse = 0,
+    MD_Forward = 1
+} MotorDirection_t;
+
 
 // - PIVOT  : The threshold at which the pivot action starts
 //            This threshold is measured in units on the Y-axis

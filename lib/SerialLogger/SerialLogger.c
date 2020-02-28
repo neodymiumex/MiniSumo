@@ -25,8 +25,11 @@ static void AddToBuffer(SerialLogger_t *instance, char *message)
         length = overflowLength;
     }
 
-    memcpy(instance->buffer[instance->bufferIndex], message, length);
-    instance->bufferIndex += length;
+    if((instance->bufferIndex + length) < MAX_BUFFER_SIZE)
+    {
+        memcpy(instance->buffer[instance->bufferIndex], message, length);
+        instance->bufferIndex += length;
+    }
 }
 
 static void WriteLog(SerialLogger_t *instance, void *args)

@@ -339,6 +339,17 @@ static void State_TurnAround(void *context, Signal_t signal, const void *args)
             }
             break;
 
+        case Signal_LineDetected:
+            if(instance->lineLocation == LL_NotDetected)
+            {
+                StateMachine_Transition(&instance->stateMachine, State_Search);
+            }
+            else if(instance->lineLocation == LL_Left)
+            {
+                StartManeuver(instance, MT_Reverse);
+            }
+            break;
+
         case Signal_ManeuverComplete:
             StateMachine_Transition(&instance->stateMachine, State_Search);
             break;

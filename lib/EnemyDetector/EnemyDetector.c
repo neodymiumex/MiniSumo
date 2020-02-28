@@ -1,12 +1,6 @@
 #include "EnemyDetector.h"
 #include <string.h>
 
-#define PRESENCE_SENSOR_LEFT 2
-#define PRESENCE_SENSOR_FRONTLEFT 3
-#define PRESENCE_SENSOR_FRONT 4
-#define PRESENCE_SENSOR_FRONTRIGHT 5
-#define PRESENCE_SENSOR_RIGHT 6
-
 static void CheckSensors(void *context)
 {
   EnemyDetector_t *instance = (EnemyDetector_t *)context;

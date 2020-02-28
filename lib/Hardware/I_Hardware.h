@@ -4,13 +4,20 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define MOTOR_1_DIR 2
-#define MOTOR_1_EN 3
-#define MOTOR_2_DIR 4
-#define MOTOR_2_EN 5
+#define MOTOR_1_DIR 15
+#define MOTOR_1_EN 14
+#define MOTOR_2_DIR 16
+#define MOTOR_2_EN 10
+
+#define PRESENCE_SENSOR_LEFT 2
+#define PRESENCE_SENSOR_FRONTLEFT 3
+#define PRESENCE_SENSOR_FRONT 4
+#define PRESENCE_SENSOR_FRONTRIGHT 5
+#define PRESENCE_SENSOR_RIGHT 6
+
 #define LINE_SENSOR_LEFT  8
 #define LINE_SENSOR_RIGHT 9
-#define SERIAL_BAUD_RATE 9600
+#define SERIAL_BAUD_RATE 115200
 
 struct I_Hardware_Api_t;
 
